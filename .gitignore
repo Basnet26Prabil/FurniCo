@@ -1,0 +1,12 @@
+*.class
+built/
+target/
+bin/
+built/
+.metadata/
+.recommenders/
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*~
