@@ -109,14 +109,28 @@
         </c:choose>
  
         <div class="actions">
-            <a href="${pageContext.request.contextPath}/cart?id=${product.productId}" class="btn btn-primary">
-                <i class="fa-solid fa-bag-shopping"></i> Add to Cart
-            </a>
-            <a href="${pageContext.request.contextPath}/wishlist?id=${product.productId}" class="btn btn-outline">
-                <i class="fa-regular fa-heart"></i> Wishlist
-            </a>
+            <%-- Add to Cart --%>
+            <form method="post" action="${pageContext.request.contextPath}/cart" style="display:inline;">
+                <input type="hidden" name="action"    value="add">
+                <input type="hidden" name="productId" value="${product.productId}">
+                <input type="hidden" name="qty"       value="1">
+                <button type="submit" class="btn btn-primary"
+                        <c:if test="${product.stock le 0}">disabled</c:if>>
+                    <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+                </button>
+            </form>
+
+            <%-- Save to Wishlist --%>
+            <form method="post" action="${pageContext.request.contextPath}/wishlist" style="display:inline;">
+                <input type="hidden" name="action"    value="add">
+                <input type="hidden" name="productId" value="${product.productId}">
+                <input type="hidden" name="redirectTo" value="/product?id=${product.productId}">
+                <button type="submit" class="btn btn-outline">
+                    <i class="fa-regular fa-heart"></i> Save to Wishlist
+                </button>
+            </form>
         </div>
- 
+
         <div class="meta">
             <div class="meta-row"><strong>Category:</strong> ${product.categoryName}</div>
             <div class="meta-row"><strong>Product ID:</strong> #${product.productId}</div>
@@ -124,7 +138,39 @@
         </div>
     </div>
 </div>
- 
+
+<!-- ===================== APPLY / REQUEST SECTION ===================== -->
+<section class="apply-section" id="apply">
+    <div class="apply-wrap">
+        <div class="apply-intro">
+            <span class="eyebrow">Interested in this item?</span>
+            <h2>Apply for <em>${product.productName}</em></h2>
+            <p>Submit a request and our team will confirm availability, pricing, and delivery details.</p>
+        </div>
+
+        <form method="post" action="${pageContext.request.contextPath}/requests" class="apply-form">
+            <input type="hidden" name="action"    value="submit">
+            <input type="hidden" name="productId" value="${product.productId}">
+
+            <div class="form-group">
+                <label for="applyQty">Quantity</label>
+                <input type="number" id="applyQty" name="quantity" min="1" value="1"
+                       class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="applyNote">Note <span class="optional">(optional)</span></label>
+                <textarea id="applyNote" name="note" rows="3" class="form-control"
+                          placeholder="Any specific requirements, colour preferences, delivery notes..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary apply-submit">
+                <i class="fa-regular fa-paper-plane"></i> Submit Request
+            </button>
+        </form>
+    </div>
+</section>
+
 <!-- ===================== FOOTER ===================== -->
 <jsp:include page="/WEB-INF/pages/footer.jsp" />
  

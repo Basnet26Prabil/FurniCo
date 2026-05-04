@@ -239,9 +239,15 @@
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-price">Rs. <fmt:formatNumber value="${p.price}" type="number" maxFractionDigits="0"/></div>
-                                    <a href="${pageContext.request.contextPath}/cart?id=${p.productId}" class="cart-btn" title="Add to cart">
-                                        <i class="fa-solid fa-bag-shopping"></i>
-                                    </a>
+                                    <form method="post" action="${pageContext.request.contextPath}/cart" style="display:inline;">
+                                        <input type="hidden" name="action"    value="add">
+                                        <input type="hidden" name="productId" value="${p.productId}">
+                                        <input type="hidden" name="qty"       value="1">
+                                        <input type="hidden" name="redirectTo" value="/cart">
+                                        <button type="submit" class="cart-btn" title="Add to cart">
+                                            <i class="fa-solid fa-bag-shopping"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </article>
