@@ -11,12 +11,14 @@ import java.io.IOException;
 /**
  * Servlet implementation class PlaceholderServlet
  *
- * Handles the URLs of modules being built by other teammates
- * (About, Contact, Cart, Wishlist) and shows a friendly
- * "Coming soon" page instead of a 404.
+ * Handles the URLs of modules still being built by other teammates
+ * (About, Contact) and shows a friendly "Coming soon" page instead of a 404.
+ *
+ * NOTE: /cart and /wishlist have been removed from here — they are now
+ * handled by CartServlet and WishlistServlet (Member 4).
  */
 @WebServlet(asyncSupported = true,
-            urlPatterns = { "/about", "/contact", "/cart", "/wishlist" })
+            urlPatterns = { "/about", "/contact" })
 public class PlaceholderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,12 +47,6 @@ public class PlaceholderServlet extends HttpServlet {
 		} else if (path.equals("/contact")) {
 			pageTitle = "Contact";
 			pageIcon = "envelope";
-		} else if (path.equals("/cart")) {
-			pageTitle = "Cart";
-			pageIcon = "bag-shopping";
-		} else if (path.equals("/wishlist")) {
-			pageTitle = "Wishlist";
-			pageIcon = "heart";
 		}
 
 		request.setAttribute("pageTitle", pageTitle);
