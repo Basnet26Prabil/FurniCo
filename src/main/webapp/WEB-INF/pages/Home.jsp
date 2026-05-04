@@ -22,32 +22,7 @@
 <body>
  
 <!-- ===================== HEADER ===================== -->
-<header class="header">
-    <a href="${pageContext.request.contextPath}/home" class="logo">
-        <span class="logo-icon"><img src="${pageContext.request.contextPath}/images/logo.png" alt="FurniCo"></span>
-        <span class="logo-text">Furni Co</span>
-    </a>
- 
-    <nav class="main-nav">
-        <a href="${pageContext.request.contextPath}/home" class="active">Home</a>
-        <a href="${pageContext.request.contextPath}/products">Shop</a>
-        <a href="${pageContext.request.contextPath}/about">About</a>
-        <a href="${pageContext.request.contextPath}/contact">Contact</a>
-    </nav>
- 
-    <div class="header-icons">
-        <a href="${pageContext.request.contextPath}/wishlist" title="Wishlist">
-            <i class="fa-regular fa-heart"></i>
-        </a>
-        <a href="${pageContext.request.contextPath}/cart" title="Cart">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span class="cart-badge">0</span>
-        </a>
-        <a href="${pageContext.request.contextPath}/login" title="Account" class="profile-icon">
-            <i class="fa-regular fa-user"></i>
-        </a>
-    </div>
-</header>
+<jsp:include page="/WEB-INF/pages/common/Header.jsp" />
  
 <!-- ===================== HERO ===================== -->
 <section class="hero">

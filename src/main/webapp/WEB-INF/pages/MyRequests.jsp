@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="jakarta.servlet.http.HttpServletRequest" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ taglib prefix="c"   uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <c:set var="activePage" value="requests" scope="request" />
@@ -15,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/requests.css">
-</head>
+	</head>
 <body>
 
 <!-- ===================== HEADER ===================== -->
@@ -145,10 +147,11 @@
                                 </td>
                                 <td>
                                     <c:if test="${req.status eq 'pending'}">
-                                        <form method="post" action="${pageContext.request.contextPath}/requests"
+                                        <form method="post"
+                                              action="${pageContext.request.contextPath}/requests"
                                               onsubmit="return confirm('Cancel this request?')">
-                                            <input type="hidden" name="action"    value="cancel">
-                                            <input type="hidden" name="requestId" value="${req.requestId}">
+                                            <input type="hidden" name="action"     value="cancel">
+                                            <input type="hidden" name="requestId"  value="${req.requestId}">
                                             <button type="submit" class="btn-cancel">
                                                 Cancel
                                             </button>
