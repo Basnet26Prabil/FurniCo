@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
 <footer class="footer">
     <div class="footer-grid">
@@ -14,7 +13,6 @@
             <div class="footer-socials">
                 <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="#" title="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
             </div>
         </div>

@@ -17,6 +17,11 @@ Furniture e-commerce platform - CS5054NP coursework at Islington College.
 5. Open phpMyAdmin -> Import sql/furnico.sql
 6. Right-click project -> Run As -> Run on Server
 
+## Default Admin Login
+
+- Email: admin@furnico.com
+- Password: Admin@123
+
 ## Team
 
 | Member | Module |

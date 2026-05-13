@@ -58,4 +58,38 @@ public class UserDAO {
         con.close();
         return user;
     }
+
+    public boolean emailExists(String email) throws Exception {
+        boolean exists = false;
+        Connection con = DBconfig.getConnection();
+
+        String sql = "SELECT user_id FROM user WHERE email = ?";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, email);
+        ResultSet rs = pst.executeQuery();
+
+        exists = rs.next();
+
+        rs.close();
+        pst.close();
+        con.close();
+        return exists;
+    }
+
+    public boolean phoneExists(String phone) throws Exception {
+        boolean exists = false;
+        Connection con = DBconfig.getConnection();
+
+        String sql = "SELECT user_id FROM user WHERE phone = ?";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, phone);
+        ResultSet rs = pst.executeQuery();
+
+        exists = rs.next();
+
+        rs.close();
+        pst.close();
+        con.close();
+        return exists;
+    }
 }

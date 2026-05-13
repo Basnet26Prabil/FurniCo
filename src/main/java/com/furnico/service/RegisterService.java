@@ -14,4 +14,14 @@ public class RegisterService {
         UserDAO dao = new UserDAO();
         dao.insertUser(firstName, lastName, email, phone, dob, password);
     }
+
+    public boolean emailExists(String email) throws Exception {
+        UserDAO dao = new UserDAO();
+        return dao.emailExists(email);
+    }
+
+    public boolean phoneExists(String phone) throws Exception {
+        UserDAO dao = new UserDAO();
+        return dao.phoneExists(phone);
+    }
 }
