@@ -1,16 +1,13 @@
 package com.furnico.dao;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.furnico.model.RequestModel;
 import com.furnico.utils.DBconfig;
-import com.furnico.utils.FurnicoException;
 
 /**
  * RequestDAO handles all database operations for the `requests` table.
@@ -23,7 +20,7 @@ public class RequestDAO {
      * @param req the RequestModel to persist
      * @return true if the insert succeeded, false otherwise
      */
-    public boolean insertRequest(RequestModel req) throws FurnicoException {
+    public boolean insertRequest(RequestModel req) throws Exception {
         String sql = "INSERT INTO requests (user_id, product_id, quantity, note, status) "
                    + "VALUES (?, ?, ?, ?, 'pending')";
 
@@ -36,10 +33,8 @@ public class RequestDAO {
             pst.setString(4, req.getNote());
 
             return pst.executeUpdate() > 0;
-        } catch (SQLException e) {                                             // ADD
-            throw new FurnicoException("Failed to insert request", e);         // ADD
-        }   
-      }
+        }
+    }
 
     /**
      * Retrieves all requests placed by a specific user, with product details joined in.
@@ -47,7 +42,7 @@ public class RequestDAO {
      * @param userId the ID of the logged-in user
      * @return list of RequestModel objects ordered newest first
      */
-    public List<RequestModel> getRequestsByUser(int userId) throws FurnicoException {
+    public List<RequestModel> getRequestsByUser(int userId) throws Exception {
         List<RequestModel> list = new ArrayList<>();
 
         String sql = "SELECT r.*, p.product_name, p.image, p.price "
@@ -63,12 +58,10 @@ public class RequestDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                list.add(mapRow(rs));
+                RequestModel req = mapRow(rs);
+                list.add(req);
             }
-        } catch (SQLException e) {                                             // ADD
-            throw new FurnicoException("Failed to fetch requests for user", e); // ADD
-        }    
-        
+        }
 
         return list;
     }
@@ -78,7 +71,7 @@ public class RequestDAO {
      *
      * @return list of all RequestModel objects ordered newest first
      */
-    public List<RequestModel> getAllRequests() throws FurnicoException {
+    public List<RequestModel> getAllRequests() throws Exception {
         List<RequestModel> list = new ArrayList<>();
 
         String sql = "SELECT r.*, p.product_name, p.image, p.price "
@@ -93,9 +86,7 @@ public class RequestDAO {
             while (rs.next()) {
                 list.add(mapRow(rs));
             }
-        } catch (SQLException e) {                                             // ADD
-            throw new FurnicoException("Failed to fetch all requests", e);     // ADD
-        }  
+        }
 
         return list;
     }
@@ -107,7 +98,7 @@ public class RequestDAO {
      * @param status    'approved' or 'rejected'
      * @return true on success
      */
-    public boolean updateStatus(int requestId, String status) throws FurnicoException {
+    public boolean updateStatus(int requestId, String status) throws Exception {
         String sql = "UPDATE requests SET status = ? WHERE request_id = ?";
 
         try (Connection con = DBconfig.getConnection();
@@ -116,9 +107,7 @@ public class RequestDAO {
             pst.setString(1, status);
             pst.setInt(2, requestId);
             return pst.executeUpdate() > 0;
-        } catch (SQLException e) {                                             // ADD
-            throw new FurnicoException("Failed to update request status", e);  // ADD
-        }   
+        }
     }
 
     /**
@@ -128,7 +117,7 @@ public class RequestDAO {
      * @param userId    the owner's ID (safety check — only owner can delete)
      * @return true on success
      */
-    public boolean deleteRequest(int requestId, int userId) throws FurnicoException {
+    public boolean deleteRequest(int requestId, int userId) throws Exception {
         String sql = "DELETE FROM requests WHERE request_id = ? AND user_id = ? AND status = 'pending'";
 
         try (Connection con = DBconfig.getConnection();
@@ -137,14 +126,12 @@ public class RequestDAO {
             pst.setInt(1, requestId);
             pst.setInt(2, userId);
             return pst.executeUpdate() > 0;
-        }  catch (SQLException e) {                                             // ADD
-            throw new FurnicoException("Failed to delete request", e);         // ADD
-        }  
+        }
     }
 
     // ── Private helpers ───────────────────────────────────────────────────
 
-    private RequestModel mapRow(ResultSet rs) throws SQLException {
+    private RequestModel mapRow(ResultSet rs) throws Exception {
         RequestModel req = new RequestModel();
         req.setRequestId(rs.getInt("request_id"));
         req.setUserId(rs.getInt("user_id"));

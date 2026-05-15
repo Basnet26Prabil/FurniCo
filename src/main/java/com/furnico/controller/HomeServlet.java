@@ -1,7 +1,6 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import com.furnico.model.CategoryModel;
 import com.furnico.model.ProductModel;
 import com.furnico.service.CategoryService;
 import com.furnico.service.ProductService;
-import com.furnico.utils.FurnicoException;
 
 /**
  * Servlet implementation class HomeServlet
@@ -48,15 +46,13 @@ public class HomeServlet extends SearchServlet {
 			// Set in Request Scope for EL access
 			request.setAttribute("categories", categories);
 			request.setAttribute("products", products);
-			
+
 			// Forward to JSP
 			request.getRequestDispatcher("/WEB-INF/pages/Home.jsp").forward(request, response);
-		 } catch (FurnicoException e) {                                      // CHANGE
-	            request.setAttribute("errorMessage", e.getMessage());           // ADD
-	            request.setAttribute("statusCode", e.getStatusCode());          // ADD
-	            request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp")        // ADD
-	                   .forward(request, response);                             // ADD
-	        }
+
+		} catch (Exception e) {
+			throw new ServletException("Database error", e);
+		}
 	}
 
 	/**

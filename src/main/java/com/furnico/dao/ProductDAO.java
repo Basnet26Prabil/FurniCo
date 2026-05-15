@@ -5,18 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLException;
 
 import com.furnico.model.ProductModel;
 import com.furnico.utils.DBconfig;
-import com.furnico.utils.FurnicoException;
 
 public class ProductDAO {
 
-    public List<ProductModel> getAllProducts() throws FurnicoException {   // CHANGE Exception → FurnicoException
+    public List<ProductModel> getAllProducts() throws Exception {
         List<ProductModel> products = new ArrayList<>();
-        try {                                                               // ADD THIS LINE
-            Connection con = DBconfig.getConnection();
+        Connection con = DBconfig.getConnection();
+
         String sql = "SELECT p.*, c.category_name FROM product p "
                    + "JOIN category c ON p.category_id = c.category_id "
                    + "ORDER BY p.product_id";
@@ -43,15 +41,11 @@ public class ProductDAO {
         rs.close();
         pst.close();
         con.close();
-        } catch (SQLException e) {                                         // ADD THIS LINE
-            throw new FurnicoException("Failed to fetch products", e);     // ADD THIS LINE
-        }         
         return products;
     }
 
-    public List<ProductModel> getProductsByCategory(int categoryId) throws FurnicoException {
+    public List<ProductModel> getProductsByCategory(int categoryId) throws Exception {
         List<ProductModel> products = new ArrayList<>();
-       try {
         Connection con = DBconfig.getConnection();
 
         String sql = "SELECT p.*, c.category_name FROM product p "
@@ -82,16 +76,12 @@ public class ProductDAO {
         rs.close();
         pst.close();
         con.close();
-       } catch (SQLException e) {                                         // ADD
-           throw new FurnicoException("Failed to fetch products by category", e);  // ADD
-       } 
         return products;
     }
 
-    public ProductModel getProductById(int productId) throws FurnicoException {
+    public ProductModel getProductById(int productId) throws Exception {
         ProductModel p = null;
-        try {
-             Connection con = DBconfig.getConnection();
+        Connection con = DBconfig.getConnection();
 
         String sql = "SELECT p.*, c.category_name FROM product p "
                    + "JOIN category c ON p.category_id = c.category_id "
@@ -119,16 +109,12 @@ public class ProductDAO {
         rs.close();
         pst.close();
         con.close();
-        } catch (SQLException e) {                                         // ADD
-            throw new FurnicoException("Failed to fetch product by ID", e); // ADD
-        }  
         return p;
     }
 
-    public List<ProductModel> searchProducts(String keyword) throws  FurnicoException {
+    public List<ProductModel> searchProducts(String keyword) throws Exception {
         List<ProductModel> products = new ArrayList<>();
-        try {
-            Connection con = DBconfig.getConnection();
+        Connection con = DBconfig.getConnection();
 
         String sql = "SELECT p.*, c.category_name FROM product p "
                    + "JOIN category c ON p.category_id = c.category_id "
@@ -158,9 +144,6 @@ public class ProductDAO {
         rs.close();
         pst.close();
         con.close();
-        } catch (SQLException e) {                                         // ADD
-            throw new FurnicoException("Failed to search products", e);    // ADD
-        }  
         return products;
     }
 }

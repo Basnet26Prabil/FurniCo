@@ -15,7 +15,6 @@ import com.furnico.model.CategoryModel;
 import com.furnico.model.ProductModel;
 import com.furnico.service.CategoryService;
 import com.furnico.service.ProductService;
-import com.furnico.utils.FurnicoException;
 
 /**
  * Servlet implementation class ProductListServlet
@@ -24,12 +23,19 @@ import com.furnico.utils.FurnicoException;
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
     public ProductListServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
 		try {
 			CategoryService categoryService = new CategoryService();
@@ -40,14 +46,8 @@ public class ProductListServlet extends HttpServlet {
 
 			// Count products per category (for sidebar display)
 			Map<Integer, Integer> categoryCounts = new HashMap<>();
-
 			for (CategoryModel cat : categories) {
-				try {
-					int count = categoryService.countProducts(cat.getCategoryId());
-					categoryCounts.put(cat.getCategoryId(), count);
-				} catch (Exception e) {
-					categoryCounts.put(cat.getCategoryId(), 0);
-				}
+				categoryCounts.put(cat.getCategoryId(), categoryService.countProducts(cat.getCategoryId()));
 			}
 
 			// Check if a category filter is selected
@@ -79,15 +79,17 @@ public class ProductListServlet extends HttpServlet {
 			// Forward to JSP
 			request.getRequestDispatcher("/WEB-INF/pages/Products.jsp").forward(request, response);
 
-		} catch (FurnicoException e) {
-			request.setAttribute("errorMessage", e.getMessage());
-			request.setAttribute("statusCode", e.getStatusCode());
-			request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp").forward(request, response);
+		} catch (Exception e) {
+			throw new ServletException("Database error", e);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

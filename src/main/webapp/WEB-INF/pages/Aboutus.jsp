@@ -12,12 +12,6 @@
 <title>About Us - FURNI-CO</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Nav.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/aboutus.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-<!-- Add this in your <head> section in Aboutus.jsp -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   .hero { position:relative; height:400px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem 3rem; overflow:hidden; }
@@ -36,6 +30,7 @@
 <!-- HERO -->
 <section class="hero">
 
+  <!-- FIX: Consistent EL syntax -->
   <img class="hero-bg-img"
        src="${pageContext.request.contextPath}/images/hero img.jpg"
        alt=""
@@ -84,6 +79,7 @@
 <div class="team-section">
   <h2 class="team-title">Meet Our Team</h2>
 
+  <!-- FIX 1: Removed stray underscore -->
   <p class="team-subtitle">The creative minds behind Furni-Co</p>
 
   <div class="team-grid">
@@ -115,7 +111,7 @@
 
     <div class="team-card">
       <div class="team-avatar">
-        <img src="${pageContext.request.contextPath}/images/mem4.jpg" alt="Prabil Basnet">
+        <img src="${pageContext.request.contextPath}/images/img1.jpg" alt="Prabil Basnet">
       </div>
       <div class="team-name">PrabilBasnet</div>
       <div class="team-role">Supervisor</div>
@@ -123,7 +119,7 @@
 
     <div class="team-card">
       <div class="team-avatar">
-        <img src="${pageContext.request.contextPath}/images/mem5.jpg" alt="Umanga Shah">
+        <img src="${pageContext.request.contextPath}/images/img2.jpg" alt="Umanga Shah">
       </div>
      
       <div class="team-name">UmangaShah</div>
@@ -133,7 +129,7 @@
     <div class="team-card">
       <div class="team-avatar">
         <!-- FIX 4: Changed duplicate img1.jpg to img3.jpg -->
-        <img src="${pageContext.request.contextPath}/images/mem6.jpg" alt="Paurakh">
+        <img src="${pageContext.request.contextPath}/images/img3.jpg" alt="Paurakh">
       </div>
       <div class="team-name">Paurakh</div>
       <div class="team-role">Manager</div>
@@ -142,9 +138,8 @@
   </div>
 </div>
 
- 
-<!-- ===================== FOOTER ===================== -->
-<jsp:include page="/WEB-INF/pages/footer.jsp" /> 
+<!-- FOOTER -->
+<%@ include file="/WEB-INF/pages/common/Footer.jsp" %>
 
 </body>
 </html>

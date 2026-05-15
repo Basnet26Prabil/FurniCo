@@ -1,7 +1,6 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import com.furnico.model.RequestModel;
 import com.furnico.model.UserModel;
 import com.furnico.service.RequestService;
 import com.furnico.utils.SessionUtil;
-import com.furnico.utils.FurnicoException; 
 
 /**
  * RequestServlet handles product Apply / Request functionality.
@@ -50,10 +48,8 @@ public class RequestServlet extends HttpServlet {
             request.setAttribute("requests", requests);
             request.getRequestDispatcher("/WEB-INF/pages/MyRequests.jsp")
                    .forward(request, response);
-        } catch (FurnicoException e) {   // CHANGED
-            request.setAttribute("errorMessage", e.getMessage());
-            request.setAttribute("statusCode", e.getStatusCode());
-            request.getRequestDispatcher("/WEB-INF/pages/views/erro.jsp").forward(request, response);   // CHANGED
+        } catch (Exception e) {
+            throw new ServletException("Error loading requests", e);
         }
     }
 
@@ -80,17 +76,15 @@ public class RequestServlet extends HttpServlet {
             } else {
                 response.sendRedirect(request.getContextPath() + "/requests");
             }
-        } catch (FurnicoException e) {
-            request.setAttribute("errorMessage", e.getMessage());
-            request.setAttribute("statusCode", e.getStatusCode());
-            request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp").forward(request, response);
+        } catch (Exception e) {
+            throw new ServletException("Request operation failed", e);
         }
     }
 
     // ── Private action handlers ───────────────────────────────────────────
 
     private void handleSubmit(HttpServletRequest request, HttpServletResponse response,
-            UserModel user) throws FurnicoException, ServletException, IOException {   // CHANGED
+                              UserModel user) throws Exception, IOException {
 
         String productIdParam = request.getParameter("productId");
         String qtyParam       = request.getParameter("quantity");
@@ -126,7 +120,7 @@ public class RequestServlet extends HttpServlet {
     }
 
     private void handleCancel(HttpServletRequest request, HttpServletResponse response,
-                               UserModel user) throws FurnicoException, IOException {
+                               UserModel user) throws Exception, IOException {
 
         String requestIdParam = request.getParameter("requestId");
         if (requestIdParam == null) {

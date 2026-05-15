@@ -1,14 +1,12 @@
 package com.furnico.service;
 
 import com.furnico.dao.UserDAO;
-
 import com.furnico.utils.PasswordUtil;
-import com.furnico.utils.FurnicoException;
 
 public class RegisterService {
 
     public void addUser(String firstName, String lastName, String email, String phone,
-                        String dob, String password) throws FurnicoException {
+                        String dob, String password) throws Exception {
 
         // Hash the password before storing
         password = PasswordUtil.getHashPassword(password);

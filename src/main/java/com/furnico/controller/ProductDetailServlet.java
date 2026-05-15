@@ -1,7 +1,6 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import java.io.IOException;
 
 import com.furnico.model.ProductModel;
 import com.furnico.service.ProductService;
-import com.furnico.utils.FurnicoException;
 
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/product" })
@@ -58,11 +56,8 @@ public class ProductDetailServlet extends HttpServlet {
 			// Forward to JSP
 			request.getRequestDispatcher("/WEB-INF/pages/ProductDetail.jsp").forward(request, response);
 
-		} catch (FurnicoException e) {
-			request.setAttribute("errorMessage", e.getMessage());           // ← CHANGED
-            request.setAttribute("statusCode", e.getStatusCode());          // ← CHANGED
-            request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp")        // ← CHANGED
-                   .forward(request, response);
+		} catch (Exception e) {
+			throw new ServletException("Database error", e);
 		}
 	}
 

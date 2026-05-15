@@ -2,10 +2,8 @@ package com.furnico.service;
 
 import java.util.List;
 
-
 import com.furnico.dao.RequestDAO;
 import com.furnico.model.RequestModel;
-import com.furnico.utils.FurnicoException;
 
 /**
  * RequestService encapsulates business logic for the Apply / Request feature.
@@ -25,7 +23,7 @@ public class RequestService {
      * @return true if saved successfully
      * @throws IllegalArgumentException for invalid input
      */
-    public boolean submitRequest(int userId, int productId, int quantity, String note) throws FurnicoException {
+    public boolean submitRequest(int userId, int productId, int quantity, String note) throws Exception {
         if (quantity < 1) {
             throw new IllegalArgumentException("Quantity must be at least 1.");
         }
@@ -42,35 +40,35 @@ public class RequestService {
     /**
      * Retrieves all requests for a given user (for My Requests portal page).
      */
-    public List<RequestModel> getUserRequests(int userId) throws FurnicoException {
+    public List<RequestModel> getUserRequests(int userId) throws Exception {
         return requestDAO.getRequestsByUser(userId);
     }
 
     /**
      * Retrieves all requests — for the admin dashboard.
      */
-    public List<RequestModel> getAllRequests() throws FurnicoException {
+    public List<RequestModel> getAllRequests() throws Exception {
         return requestDAO.getAllRequests();
     }
 
     /**
      * Admin approves a request.
      */
-    public boolean approveRequest(int requestId) throws FurnicoException {
+    public boolean approveRequest(int requestId) throws Exception {
         return requestDAO.updateStatus(requestId, "approved");
     }
 
     /**
      * Admin rejects a request.
      */
-    public boolean rejectRequest(int requestId) throws FurnicoException {
+    public boolean rejectRequest(int requestId) throws Exception {
         return requestDAO.updateStatus(requestId, "rejected");
     }
 
     /**
      * User cancels their own pending request.
      */
-    public boolean cancelRequest(int requestId, int userId) throws FurnicoException {
+    public boolean cancelRequest(int requestId, int userId) throws Exception {
         return requestDAO.deleteRequest(requestId, userId);
     }
 }
