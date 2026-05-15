@@ -1,17 +1,21 @@
 package com.furnico.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.furnico.model.UserModel;
 import com.furnico.utils.DBconfig;
+import com.furnico.utils.FurnicoException;
+
 
 public class UserDAO {
 
     public void insertUser(String firstName, String lastName, String email, String phone,
-                           String dob, String hashedPassword) throws Exception {
-
+                           String dob, String hashedPassword) throws FurnicoException {
+    	try {
         Connection con = DBconfig.getConnection();
 
         String sql = "INSERT INTO user (first_name, last_name, email, phone, dob, password) "
@@ -29,10 +33,14 @@ public class UserDAO {
 
         pst.close();
         con.close();
-    }
+    }  catch (SQLException e) {                                             // ADD
+        throw new FurnicoException("Failed to register user", e);         // ADD
+    } 
+   }
 
-    public UserModel findByEmail(String email) throws Exception {
+    public UserModel findByEmail(String email) throws FurnicoException {
         UserModel user = null;
+        try {
         Connection con = DBconfig.getConnection();
 
         String sql = "SELECT * FROM user WHERE email = ?";
@@ -56,6 +64,9 @@ public class UserDAO {
         rs.close();
         pst.close();
         con.close();
+       } catch (SQLException e) {                                             // ADD
+            throw new FurnicoException("Failed to find user by email", e);    // ADD
+        }   
         return user;
     }
 }

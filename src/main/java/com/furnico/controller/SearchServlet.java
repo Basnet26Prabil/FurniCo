@@ -1,6 +1,7 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import com.furnico.model.CategoryModel;
 import com.furnico.model.ProductModel;
 import com.furnico.service.CategoryService;
 import com.furnico.service.ProductService;
+import com.furnico.utils.FurnicoException;
 
 /**
  * Servlet implementation class SearchServlet
@@ -24,18 +26,21 @@ import com.furnico.service.ProductService;
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SearchServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		try {
@@ -73,15 +78,21 @@ public class SearchServlet extends HttpServlet {
 			// Forward to JSP (reuse the products listing page)
 			request.getRequestDispatcher("/WEB-INF/pages/Products.jsp").forward(request, response);
 
-		} catch (Exception e) {
-			throw new ServletException("Database error", e);
+		} catch (FurnicoException e) {
+			request.setAttribute("errorMessage", e.getMessage());
+			request.setAttribute("statusCode", e.getStatusCode());
+			request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp").forward(request, response);
+			return;
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
