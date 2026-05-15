@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
 <footer class="footer">
     <div class="footer-grid">
- 
+
         <div class="footer-brand">
             <div class="logo">
                 <span class="logo-icon"><img src="${pageContext.request.contextPath}/images/logo.png" alt="FurniCo"></span>
@@ -18,7 +17,7 @@
                 <a href="#" title="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
             </div>
         </div>
- 
+
         <div class="footer-col">
             <h4>Quick Links</h4>
             <ul>
@@ -30,7 +29,7 @@
                 <li><a href="${pageContext.request.contextPath}/cart">Cart</a></li>
             </ul>
         </div>
- 
+
         <div class="footer-col">
             <h4>Customer Service</h4>
             <ul>
@@ -42,7 +41,7 @@
                 <li><a href="#">Terms of Service</a></li>
             </ul>
         </div>
- 
+
         <div class="footer-col">
             <h4>Contact</h4>
             <div class="footer-contact-item">
@@ -58,9 +57,9 @@
                 <span>hello@furnico.com.np</span>
             </div>
         </div>
- 
+
     </div>
- 
+
     <div class="footer-bottom">
         &copy; 2026 FurniCo. All rights reserved. Built for CS5054NP coursework, Islington College.
     </div>

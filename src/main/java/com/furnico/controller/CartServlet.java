@@ -1,6 +1,7 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.util.Map;
 import com.furnico.model.CartItem;
 import com.furnico.model.ProductModel;
 import com.furnico.service.ProductService;
+import com.furnico.utils.FurnicoException; 
 
 /**
  * CartServlet manages the session-based shopping cart.
@@ -104,24 +106,26 @@ public class CartServlet extends HttpServlet {
             } else if ("clear".equals(action)) {
                 cart.clear();
             }
+        }catch (NumberFormatException e) {
+                // Invalid number parameter — do nothing, redirect back
+            } catch (IllegalArgumentException e) {
+                // Invalid argument — do nothing, redirect back
+            } catch (FurnicoException e) {                                   // ← CHANGED THIS LINE
+                request.setAttribute("errorMessage", e.getMessage());
+                request.setAttribute("statusCode", e.getStatusCode());
+                request.getRequestDispatcher("/WEB-INF/pages/error.jsp")
+                       .forward(request, response);
+                return;
+            }
 
-        } catch (NumberFormatException e) {
-            // Invalid number parameter — do nothing, redirect back
-        } catch (IllegalArgumentException e) {
-            // Invalid argument — do nothing, redirect back
-        } catch (Exception e) {
-            throw new ServletException("Cart operation failed", e);
+            saveCart(request, cart);
+
+            if (redirectTo != null && !redirectTo.isEmpty()) {
+                response.sendRedirect(request.getContextPath() + redirectTo);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/cart");
+            }
         }
-
-        saveCart(request, cart);
-
-        // Redirect
-        if (redirectTo != null && !redirectTo.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + redirectTo);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/cart");
-        }
-    }
 
     // ── Helpers ───────────────────────────────────────────────────────────
 

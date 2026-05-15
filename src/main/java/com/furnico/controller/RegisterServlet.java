@@ -1,10 +1,12 @@
 package com.furnico.controller;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.furnico.utils.FurnicoException;
 
 import java.io.IOException;
 
@@ -60,10 +62,10 @@ public class RegisterServlet extends HttpServlet {
 			// Redirect to login page on success
 			response.sendRedirect(request.getContextPath() + "/login?success=registered");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "Registration failed. The email may already be in use.");
-			request.getRequestDispatcher("/WEB-INF/pages/Register.jsp").forward(request, response);
+		} catch (FurnicoException e) {   // CHANGED
+		    request.setAttribute("errorMessage", e.getMessage());
+		    request.setAttribute("statusCode", e.getStatusCode());
+		    request.getRequestDispatcher("/WEB-INF/pages/views/error.jsp").forward(request, response);   // CHANGED
 		}
 	}
 

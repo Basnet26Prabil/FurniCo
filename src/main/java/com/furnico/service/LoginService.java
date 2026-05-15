@@ -1,12 +1,14 @@
 package com.furnico.service;
 
 import com.furnico.dao.UserDAO;
+
 import com.furnico.model.UserModel;
 import com.furnico.utils.PasswordUtil;
+import com.furnico.utils.FurnicoException;
 
 public class LoginService {
 
-    public UserModel loginUser(String email, String password) throws Exception {
+    public UserModel loginUser(String email, String password) throws FurnicoException {
 
         UserDAO dao = new UserDAO();
         UserModel user = dao.findByEmail(email);
