@@ -7,7 +7,7 @@ public class DBconfig {
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/furnico";
     private static final String USER = "root";
-    private static final String PASSWORD = "affinity";
+    private static final String PASSWORD = "";
 
     public static Connection getConnection() {
 

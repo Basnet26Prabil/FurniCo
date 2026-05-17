@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?v=5">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?v=6">
 </head>
 <body>
 
@@ -27,9 +27,11 @@
     </a>
 
     <nav class="main-nav">
-        <a href="${pageContext.request.contextPath}/home">Storefront</a>
+        <a href="${pageContext.request.contextPath}/admin">Dashboard</a>
         <a href="${pageContext.request.contextPath}/admin/products">Products</a>
+        <a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
         <a href="${pageContext.request.contextPath}/admin/orders" class="active">Orders</a>
+        <a href="${pageContext.request.contextPath}/admin/users">Users</a>
         <jsp:include page="/WEB-INF/pages/accountMenu.jsp" />
     </nav>
 </header>
@@ -56,44 +58,19 @@
         <div class="stat-card">
             <span>Pending Requests</span>
             <strong><fmt:formatNumber value="${pendingCount}" minIntegerDigits="2"/></strong>
-            <small>need review</small>
         </div>
         <div class="stat-card">
             <span>Approved Today</span>
             <strong><fmt:formatNumber value="${approvedTodayCount}" minIntegerDigits="2"/></strong>
-            <small>ready to process</small>
         </div>
         <div class="stat-card">
             <span>Low Stock Alerts</span>
             <strong><fmt:formatNumber value="${lowStockCount}" minIntegerDigits="2"/></strong>
-            <small>check product stock</small>
         </div>
         <div class="stat-card wide">
             <span>Most Requested Category</span>
             <strong>${mostRequestedCategory}</strong>
-            <small>based on active requests</small>
         </div>
-    </section>
-
-    <section class="panel request-filter-panel">
-        <form class="admin-request-filter" action="${pageContext.request.contextPath}/admin/orders" method="get">
-            <strong>Filter Requests</strong>
-            <input type="text" name="keyword" value="${keyword}" placeholder="Search by customer/product">
-            <select name="status">
-                <option value="" ${empty status ? 'selected' : ''}>Status: All</option>
-                <option value="pending" ${status eq 'pending' ? 'selected' : ''}>Pending</option>
-                <option value="approved" ${status eq 'approved' ? 'selected' : ''}>Approved</option>
-                <option value="rejected" ${status eq 'rejected' ? 'selected' : ''}>Rejected</option>
-            </select>
-            <select name="dateRange">
-                <option value="" ${empty dateRange ? 'selected' : ''}>Date: All</option>
-                <option value="today" ${dateRange eq 'today' ? 'selected' : ''}>Today</option>
-                <option value="week" ${dateRange eq 'week' ? 'selected' : ''}>This week</option>
-                <option value="month" ${dateRange eq 'month' ? 'selected' : ''}>This month</option>
-            </select>
-            <button type="submit">Apply</button>
-            <a href="${pageContext.request.contextPath}/admin/orders">Reset</a>
-        </form>
     </section>
 
     <section class="request-layout">
@@ -102,6 +79,40 @@
                 <h2>Customer Requests</h2>
                 <span class="record-count">${fn:length(requests)} records</span>
             </div>
+
+            <form class="admin-request-filter card-filter-row" action="${pageContext.request.contextPath}/admin/orders" method="get">
+                <div class="field">
+                    <label>Search</label>
+                    <div class="filter-input">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" name="keyword" value="${keyword}" placeholder="Search by customer/product">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    <select name="status">
+                        <option value="" ${empty status ? 'selected' : ''}>All statuses</option>
+                        <option value="pending" ${status eq 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="approved" ${status eq 'approved' ? 'selected' : ''}>Approved</option>
+                        <option value="rejected" ${status eq 'rejected' ? 'selected' : ''}>Rejected</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Date</label>
+                    <select name="dateRange">
+                        <option value="" ${empty dateRange ? 'selected' : ''}>All dates</option>
+                        <option value="today" ${dateRange eq 'today' ? 'selected' : ''}>Today</option>
+                        <option value="week" ${dateRange eq 'week' ? 'selected' : ''}>This week</option>
+                        <option value="month" ${dateRange eq 'month' ? 'selected' : ''}>This month</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button type="submit"><i class="fa-solid fa-filter"></i> Apply</button>
+                    <a href="${pageContext.request.contextPath}/admin/orders">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </a>
+                </div>
+            </form>
 
             <div class="table-wrap">
                 <table class="request-table">

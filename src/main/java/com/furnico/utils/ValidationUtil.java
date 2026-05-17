@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.furnico.model.ProductModel;
+import com.furnico.model.CategoryModel;
 
 public class ValidationUtil {
 
@@ -87,6 +88,33 @@ public class ValidationUtil {
         }
         if (product.getStock() < 0) {
             errors.add("Stock cannot be negative.");
+        }
+
+        return errors;
+    }
+
+    public static List<String> validateCategory(CategoryModel category) {
+        List<String> errors = new ArrayList<>();
+
+        if (category == null) {
+            errors.add("Category information is missing.");
+            return errors;
+        }
+
+        if (isBlank(category.getCategoryName()) || category.getCategoryName().trim().length() < 2) {
+            errors.add("Category name must be at least 2 characters long.");
+        }
+        if (category.getCategoryName() != null && category.getCategoryName().trim().length() > 50) {
+            errors.add("Category name cannot exceed 50 characters.");
+        }
+        if (isBlank(category.getDescription())) {
+            errors.add("Category description is required.");
+        }
+        if (category.getDescription() != null && category.getDescription().trim().length() > 255) {
+            errors.add("Category description cannot exceed 255 characters.");
+        }
+        if (isBlank(category.getImage())) {
+            errors.add("Category image is required.");
         }
 
         return errors;

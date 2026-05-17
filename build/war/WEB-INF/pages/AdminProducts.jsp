@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?v=5">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?v=6">
 </head>
 <body>
 
@@ -27,9 +27,11 @@
     </a>
 
     <nav class="main-nav">
-        <a href="${pageContext.request.contextPath}/home">Storefront</a>
+        <a href="${pageContext.request.contextPath}/admin">Dashboard</a>
         <a href="${pageContext.request.contextPath}/admin/products" class="active">Products</a>
+        <a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
         <a href="${pageContext.request.contextPath}/admin/orders">Orders</a>
+        <a href="${pageContext.request.contextPath}/admin/users">Users</a>
         <jsp:include page="/WEB-INF/pages/accountMenu.jsp" />
     </nav>
 </header>

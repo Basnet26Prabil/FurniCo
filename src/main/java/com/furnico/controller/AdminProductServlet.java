@@ -19,7 +19,7 @@ import com.furnico.service.CategoryService;
 import com.furnico.service.ProductService;
 import com.furnico.utils.ValidationUtil;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/admin", "/admin/products" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/admin/products" })
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,

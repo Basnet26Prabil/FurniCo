@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 		Object role = SessionUtil.getAttribute(request, "userRole");
 		if (role != null) {
 			if ("admin".equalsIgnoreCase(role.toString())) {
-				response.sendRedirect(request.getContextPath() + "/admin/products");
+				response.sendRedirect(request.getContextPath() + "/admin");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
@@ -102,7 +102,7 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(emailCookie);
 
 			if ("admin".equalsIgnoreCase(user.getRole())) {
-				response.sendRedirect(request.getContextPath() + "/admin/products");
+				response.sendRedirect(request.getContextPath() + "/admin");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}

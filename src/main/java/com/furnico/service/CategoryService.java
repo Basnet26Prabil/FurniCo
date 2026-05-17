@@ -21,4 +21,24 @@ public class CategoryService {
         CategoryDAO dao = new CategoryDAO();
         return dao.countByCategory(categoryId);
     }
+
+    public List<CategoryModel> filter(String keyword) throws Exception {
+        CategoryDAO dao = new CategoryDAO();
+        return dao.filterCategories(keyword);
+    }
+
+    public void add(CategoryModel category) throws Exception {
+        CategoryDAO dao = new CategoryDAO();
+        dao.addCategory(category);
+    }
+
+    public void update(CategoryModel category) throws Exception {
+        CategoryDAO dao = new CategoryDAO();
+        dao.updateCategory(category);
+    }
+
+    public void delete(int categoryId) throws Exception {
+        CategoryDAO dao = new CategoryDAO();
+        dao.deleteCategory(categoryId);
+    }
 }

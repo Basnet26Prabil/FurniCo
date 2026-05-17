@@ -97,5 +97,5 @@ INSERT INTO product (product_name, category_id, price, description, image, stock
 ('Arc Floor Lamp',         6, 15000.00, 'Tall arc floor lamp with marble base and brass arm.',                                 'arc-lamp.jpg',         9, 4.4,  71,  73);
 
 INSERT INTO user (first_name, last_name, email, phone, dob, password, role) VALUES
-('FurniCo', 'Admin', 'admin@furnico.com', '9800000000', '2000-01-01',
+('FurniCo', 'Admin', 'admin@gmail.com', '9800000000', '2000-01-01',
  '$2a$10$NzjkOqPvKKCIsr4PDA6aPu.Td2/vIegqlN9kAO42EStxycEL4KsIe', 'admin');
