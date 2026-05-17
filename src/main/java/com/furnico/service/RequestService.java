@@ -51,6 +51,26 @@ public class RequestService {
         return requestDAO.getAllRequests();
     }
 
+    public List<RequestModel> getFilteredRequests(String keyword, String status, String dateRange) throws Exception {
+        return requestDAO.getFilteredRequests(keyword, status, dateRange);
+    }
+
+    public int getPendingCount() throws Exception {
+        return requestDAO.countByStatus("pending");
+    }
+
+    public int getApprovedTodayCount() throws Exception {
+        return requestDAO.countApprovedToday();
+    }
+
+    public int getLowStockProductCount() throws Exception {
+        return requestDAO.countLowStockProducts();
+    }
+
+    public String getMostRequestedCategory() throws Exception {
+        return requestDAO.getMostRequestedCategory();
+    }
+
     /**
      * Admin approves a request.
      */

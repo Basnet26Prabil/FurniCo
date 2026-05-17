@@ -26,4 +26,24 @@ public class ProductService {
         ProductDAO dao = new ProductDAO();
         return dao.searchProducts(keyword);
     }
+
+    public List<ProductModel> filter(String keyword, Integer categoryId, String stockStatus) throws Exception {
+        ProductDAO dao = new ProductDAO();
+        return dao.filterProducts(keyword, categoryId, stockStatus);
+    }
+
+    public void add(ProductModel product) throws Exception {
+        ProductDAO dao = new ProductDAO();
+        dao.addProduct(product);
+    }
+
+    public void update(ProductModel product) throws Exception {
+        ProductDAO dao = new ProductDAO();
+        dao.updateProduct(product);
+    }
+
+    public void delete(int productId) throws Exception {
+        ProductDAO dao = new ProductDAO();
+        dao.deleteProduct(productId);
+    }
 }

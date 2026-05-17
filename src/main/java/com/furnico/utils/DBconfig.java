@@ -11,18 +11,15 @@ public class DBconfig {
 
     public static Connection getConnection() {
 
-        Connection conn = null;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println(" Connected to DB");
+            return conn;
 
         } catch (Exception e) {
             System.out.println("DB Connection Failed");
-            e.printStackTrace();
+            throw new RuntimeException("Unable to connect to FurniCo database", e);
         }
-
-        return conn;
     }
 }

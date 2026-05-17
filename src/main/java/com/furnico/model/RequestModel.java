@@ -11,6 +11,8 @@ public class RequestModel {
     private int requestId;
     private int userId;
     private int productId;
+    private String customerName;  // joined from user table (read-only)
+    private String customerEmail; // joined from user table (read-only)
     private String productName;   // joined from product table (read-only)
     private String productImage;  // joined from product table (read-only)
     private double productPrice;  // joined from product table (read-only)
@@ -29,6 +31,12 @@ public class RequestModel {
 
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
+
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+    public String getCustomerEmail() { return customerEmail; }
+    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
 
     public String getProductName() { return productName; }
     public void setProductName(String productName) { this.productName = productName; }

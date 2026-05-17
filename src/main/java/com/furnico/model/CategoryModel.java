@@ -6,6 +6,7 @@ public class CategoryModel {
     private String categoryName;
     private String description;
     private String image;
+    private int productCount;
 
     public int getCategoryId() {
         return categoryId;
@@ -33,5 +34,12 @@ public class CategoryModel {
     }
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getProductCount() {
+        return productCount;
+    }
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 }
